@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Lab10.Models.Categories>
+
+@{
+    ViewData["Title"] = "Read Story";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+<div class="recently-added-div">
+    @foreach (var topic in Model)
+    {<div>
+    @{
+        string path = "/FileStorage/Images/" + topic.ImageName;
+        <img class="recently-added-div-item" src="@path" onclick="location.href='@Url.Action("Stories", "Story", new { id = topic.CategoriesID })'"/>
+    }
+    <div class="recently-div-story">
+        <div class="story-topic" onclick="location.href='@Url.Action("Stories", "Story", new { id = topic.CategoriesID })'">
+            @Html.DisplayFor(modelItem => topic.categoryName)
+        </div>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="ListClass"> <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@topic.CategoriesID"> Edit </a> </div>
+        <div class="ListClass"> <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@topic.CategoriesID"> Delete </a></div>
+    }
+</div>
+
+    }
+</div>
+
+    @if (User.IsInRole("Admin"))
+    {<div class="manage-category">
+            <button class="catg-button" type="button" onclick="location.href='@Url.Action("CreateCategory", "Category")'">
+                Add
+            </button>
+        </div>
+    }
+
+

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Lab10.Models.Categories>
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/site.js" type="text/javascript" asp-append-version="true"></script>
+<div class="slideshow-container-main">
+    @foreach (var image in Model)
+    {
+        var currImagePath = "/FileStorage/Images/" + image.ImageName;
+        <div class="slider-block-main">
+            <img class="slide-main-Image" src="@currImagePath" onclick="location.href='@Url.Action("Stories", "Story", new { id = image.CategoriesID })'" />
+        </div>
+    }
+</div>
+
+<script>
+    MainAutomatic();
+</script>
+<div>
+    @(await Component.InvokeAsync("Menu"))
+</div>
+

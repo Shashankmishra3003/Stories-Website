@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Lab10.Models.Stories>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Default</title>
+</head>
+<body>
+    <div class="recently-added-div">
+        @foreach (var story in Model)
+        {<div>
+
+    <div class="recently-div-story">
+        <div class="story-topic" onclick="location.href='@Url.Action("StoryBlock", "StoryBlock", new { id = story.StoriesID })'">
+            @Html.DisplayFor(modelItem => story.storyName)
+        </div>
+    </div>
+    @{
+        string path = "/FileStorage/Images/" + story.ImageName;
+        <img class="recently-added-div-item" src="@path" onclick="location.href='@Url.Action("StoryBlock", "StoryBlock", new { id = story.StoriesID })'"/>
+    }
+    <div class="recently-added-div-descript">
+        <p>
+            @Html.DisplayFor(modelItem => story.storyDescription)
+        </p>
+    </div>
+</div>
+
+        }
+    </div>
+
+</body>
+</html>

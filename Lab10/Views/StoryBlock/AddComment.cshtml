@@ -1,0 +1,21 @@
+﻿@model Lab10.Models.Comments
+@{
+    ViewData["Title"] = "AddComment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddComments</h1>
+
+<div class="row">
+    <form asp-action="AddComment">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CommentData" class="control-label">Comment</label>
+            <input asp-for="CommentData" class="form-control" />
+            <span asp-validation-for="CommentData" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

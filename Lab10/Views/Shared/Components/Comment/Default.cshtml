@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Lab10.Models.Comments>
+@{
+    Layout = null;
+    var stryID = ViewData["StoryID"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CommentView</title>
+</head>
+<body>
+
+    <div class="CommentBox">
+
+        <h4 class="comment-head">Comments</h4>
+
+        @if (User.IsInRole("User") || User.IsInRole("Admin"))
+        {
+            foreach (var comment in Model)
+            {
+                <h9 class="commenter">@comment.Commenter</h9>
+                <p class="comment">@Html.DisplayFor(modelItem => comment.CommentData)</p>
+            }
+         }
+    </div>
+
+    <div class="AddComment">
+        <div class="ListClass"> 
+        <a asp-controller="StoryBlock" asp-action="AddComment" asp-route-id="@stryID"> Add Comment </a>
+        </div>
+    </div>
+
+</body>
+</html>

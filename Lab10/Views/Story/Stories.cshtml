@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Lab10.Models.Stories>
+@{
+	ViewData["Title"] = "Stories";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Stories</h1>
+
+@if (User.IsInRole("User") || User.IsInRole("Admin"))
+{
+  <div class="recently-added-div">
+     @foreach (var story in Model)
+     {<div>
+
+    <div class="recently-div-story">
+        <div class="story-topic" onclick="location.href='@Url.Action("StoryBlock", "StoryBlock", new { id = story.StoriesID })'">
+            @Html.DisplayFor(modelItem => story.storyName)
+
+        </div>
+    </div>
+    @{
+        string path = "/FileStorage/Images/" + story.ImageName;
+        <img class="recently-added-div-item" src="@path" onclick="location.href='@Url.Action("StoryBlock", "StoryBlock", new { id = story.StoriesID })'" />
+    }
+    <div class="recently-added-div-descript">
+        <p>
+            @Html.DisplayFor(modelItem => story.storyDescription)
+        </p>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="ListClass"> <a asp-action="EditStory" asp-route-id="@story.StoriesID"> Edit </a> </div>
+        <div class="ListClass"> <a asp-action="DeleteStory" asp-route-id="@story.StoriesID"> Delete </a></div>
+    }
+</div>
+
+    }
+</div>
+ }
+else
+{
+	<div class="recently-added-div-descript">
+		<p>
+		   Login to Read more stories.
+		</p>
+	</div>
+}
+

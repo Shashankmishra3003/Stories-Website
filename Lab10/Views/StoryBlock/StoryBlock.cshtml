@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Lab10.Models.StoryBlock>
+@using Microsoft.AspNetCore.Hosting
+@inject IHostingEnvironment HostingEnvironment
+@{
+    ViewData["Title"] = "StoryBlock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/js/jsShared.js" type="text/javascript" asp-append-version="true"></script>
+<div class="slideshow-container">
+    @foreach (var story in Model)
+    {
+        var webRootPath = HostingEnvironment.WebRootPath;
+        var currFilePath = "/FileStorage/StoryBlockContent/" + story.FileName;
+        var currImagePath = "/FileStorage/StoryBlockContent/" + story.ImageName;
+        var time = story.Timeline;
+
+        string filePath = @webRootPath + currFilePath;
+        var path = System.IO.File.ReadAllText(@filePath);
+        <div>
+            <div class="slider-block" id="slider-block">
+                <img id="myImg" class="slide-image" src="@currImagePath"/>
+                <div class="slide-text">
+                    @{
+                        string name = story.FileName;
+                        string nameWoExt;
+                        nameWoExt = System.IO.Path.GetFileNameWithoutExtension(name);
+                        <p class="time-line">
+                            @time
+                        </p>
+                        <p class="block-title">
+                            @nameWoExt
+                        </p>
+                        <p class="para">
+                            @path
+                        </p>
+
+                    }
+                </div>
+
+            </div>
+
+            <a id="prev" href="#prev" class="arrow" style="visibility: visible;" onclick="showSlide(-1)">‹</a>
+            <a id="next" href="#next" class="arrow" style="visibility: visible;" onclick="showSlide(1)">›</a>
+        </div>
+    }
+</div>
+@{
+    var i = 0;
+
+    <div class="dot-div">
+        <div class="div-button">
+            <button class='play' onclick="automatic()"></button>
+
+        </div>
+        <div class="div-dot">
+            @foreach (var s in Model)
+            {
+
+                <div class="dot" onclick="currentSlide(@i)"></div>
+                i++;
+
+            }
+        </div>
+
+    </div>
+}
+
+<div id="Mymodal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+<div>
+    @(await Component.InvokeAsync("Comment", ViewData["StoryID"]))
+</div>
+
+<script>
+    viewImage();
+</script>
