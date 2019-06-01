@@ -8,3 +8,8 @@ The Website has a public section with limited stories which does not require the
 In order to view the complete list user must signIn,Currently email is not varified but this will be a future update.
 The project also has a console based Admin application which is used to create new stories and upload files and images.
 Future update will be to create a User interface based admin portal.
+
+![](/Images/Home.png)
+![](/Images/Read.png)
+![](/Images/story.png)
+![](/Images/storyBlock.png)
